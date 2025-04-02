@@ -42,11 +42,15 @@ Each case study folder contains:
 **Objective:**  
 Examine how Oracle leverages unique indexes (`INDEX UNIQUE SCAN`) and `TABLE ACCESS BY ROWID`. Focus is on understanding the basic flow of indexed access.
 
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AYB3?atlOrigin=eyJpIjoiNjIyMmE3MmQ0ZGNkNGI4MmFmNjRhOWQxNjQwMTk0NDAiLCJwIjoiYyJ9)
+
 ---
 
 ### 🔹 `case03_subquery`
 **Objective:**  
 Explore how Oracle processes subqueries and how join order affects execution. Demonstrates how using the `LEADING` hint shifts the optimizer from a `HASH JOIN` to a `NESTED LOOP` when appropriate.
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/BoB4?atlOrigin=eyJpIjoiMzQzZGVjODc1OWNkNDBiZDhkNGY5OGU2ZjJkN2E5NzciLCJwIjoiYyJ9)
 
 ---
 
@@ -54,11 +58,15 @@ Explore how Oracle processes subqueries and how join order affects execution. De
 **Objective:**  
 Evaluate join order in a three-table query. Highlights the impact of filtering early using a more selective table (`EMPLOYEES`) by using the `LEADING` hint to influence the join path.
 
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/BICs?atlOrigin=eyJpIjoiZDlmNDRkMmYwODExNGQ4ZTg1Nzk3NmVhNzU4ZmUzYTkiLCJwIjoiYyJ9)
+
 ---
 
 ### 🔹 `case05_nested_loop_join`
 **Objective:**  
 Analyze a multi-join scenario and compare Oracle's default strategy (`HASH JOIN`) with a forced `NESTED LOOP` via the `USE_NL` hint. Emphasis on performance tradeoffs based on expected row volumes.
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AQCv?atlOrigin=eyJpIjoiNjE2NjFjYWNjNzcwNDNmZGJhMjUwYWE1NzQ2YTdkNWQiLCJwIjoiYyJ9)
 
 ---
 
@@ -66,10 +74,14 @@ Analyze a multi-join scenario and compare Oracle's default strategy (`HASH JOIN`
 **Objective:**  
 Focus on how Oracle interprets and optimizes `EXISTS` subqueries. Demonstrates that `EXISTS` logic is evaluated during row-level filtering and that the optimizer may already choose the most efficient plan, regardless of the presence of a `LEADING` hint.
 
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AYCx?atlOrigin=eyJpIjoiN2I2NTE4M2UwMDNlNDA4ZDgzZTAyNjg5OWUzOTA2MmEiLCJwIjoiYyJ9)
+
 ---
 
 ### 🧩 `Extended Case Study 01`
 Additional exploration and diagnostics related to Case 01. Includes performance comparisons, plan variations, and step-by-step visual breakdowns.
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AYAF?atlOrigin=eyJpIjoiZDA1ZmQ5YTRlMjk1NDFmNzlkYjg1ZmMxYWUzN2EwYjYiLCJwIjoiYyJ9)
 
 ---
 
