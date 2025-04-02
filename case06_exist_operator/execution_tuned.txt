@@ -1,0 +1,39 @@
+SQL_ID              CHILD_NUMBER SQL_TEXT                                                                                                                                                                                                                                                                     
+________________ _______________ ____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+g32pqw2ahg9jq                  0 SELECT /*LEADING(E) case_study_6_leading*/ E.FIRST_NAME, E.LAST_NAME, E.HIRE_DATE FROM EMPLOYEES E, DEPARTMENTS D WHERE E.EMPLOYEE_ID IN (101, 102, 103, 104, 105) AND EXISTS (SELECT JOB_ID FROM JOBS J WHERE J.JOB_ID = E.JOB_ID) AND E.DEPARTMENT_ID = D.DEPARTMENT_ID    
+
+Enter value for sql_id: g32pqw2ahg9jq
+Enter value for child_number: 0
+old:SELECT * FROM DBMS_XPLAN.DISPLAY_CURSOR('&sql_id', &child_number)
+new:SELECT * FROM DBMS_XPLAN.DISPLAY_CURSOR('g32pqw2ahg9jq', 0)
+
+PLAN_TABLE_OUTPUT                                                                                 
+_________________________________________________________________________________________________ 
+SQL_ID  g32pqw2ahg9jq, child number 0                                                             
+-------------------------------------                                                             
+SELECT /*LEADING(E) case_study_6_leading*/ E.FIRST_NAME, E.LAST_NAME,                             
+E.HIRE_DATE FROM EMPLOYEES E, DEPARTMENTS D WHERE E.EMPLOYEE_ID IN                                
+(101, 102, 103, 104, 105) AND EXISTS (SELECT JOB_ID FROM JOBS J WHERE                             
+J.JOB_ID = E.JOB_ID) AND E.DEPARTMENT_ID = D.DEPARTMENT_ID                                        
+                                                                                                  
+Plan hash value: 1977235694                                                                       
+                                                                                                  
+----------------------------------------------------------------------------------------------    
+| Id  | Operation                    | Name          | Rows  | Bytes | Cost (%CPU)| Time     |    
+----------------------------------------------------------------------------------------------    
+|   0 | SELECT STATEMENT             |               |       |       |     2 (100)|          |    
+|   1 |  INLIST ITERATOR             |               |       |       |            |          |    
+|*  2 |   TABLE ACCESS BY INDEX ROWID| EMPLOYEES     |     5 |   190 |     2   (0)| 00:00:01 |    
+|*  3 |    INDEX UNIQUE SCAN         | EMP_EMP_ID_PK |     5 |       |     1   (0)| 00:00:01 |    
+----------------------------------------------------------------------------------------------    
+                                                                                                  
+Predicate Information (identified by operation id):                                               
+---------------------------------------------------                                               
+                                                                                                  
+   2 - filter("E"."DEPARTMENT_ID" IS NOT NULL)                                                    
+   3 - access(("E"."EMPLOYEE_ID"=101 OR "E"."EMPLOYEE_ID"=102 OR                                  
+              "E"."EMPLOYEE_ID"=103 OR "E"."EMPLOYEE_ID"=104 OR "E"."EMPLOYEE_ID"=105))           
+                                                                                                  
+
+25 rows selected. 
+

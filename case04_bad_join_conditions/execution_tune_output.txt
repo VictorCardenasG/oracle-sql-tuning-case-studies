@@ -1,0 +1,35 @@
+SQL_ID              CHILD_NUMBER SQL_TEXT                                                                                                                                                                                                                                                      
+________________ _______________ _____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+8a2t2j94u0nxv                  0 SELECT /*+LEADING(E) case_study_4_leading*/ E.FIRST_NAME, E.LAST_NAME, E.HIRE_DATE FROM EMPLOYEES E, DEPARTMENTS D, LOCATIONS L WHERE E.EMPLOYEE_ID = 200 AND D.DEPARTMENT_ID = 10 AND E.DEPARTMENT_ID = D.DEPARTMENT_ID AND D.LOCATION_ID = L.LOCATION_ID    
+
+Enter value for sql_id: 
+Enter value for child_number: 0
+old:SELECT * FROM DBMS_XPLAN.DISPLAY_CURSOR('&sql_id', &child_number)
+new:SELECT * FROM DBMS_XPLAN.DISPLAY_CURSOR('', 0)
+
+PLAN_TABLE_OUTPUT                                                                
+________________________________________________________________________________ 
+SQL_ID  13bpwqwgnpga7, child number 0                                            
+-------------------------------------                                            
+SELECT sql_id, child_number, sql_text FROM v$sql WHERE sql_text LIKE             
+'%case_study_4_leading%' AND sql_text NOT LIKE '%v$sql%'                         
+                                                                                 
+Plan hash value: 903671040                                                       
+                                                                                 
+---------------------------------------------------------------------------      
+| Id  | Operation        | Name              | Rows  | Bytes | Cost (%CPU)|      
+---------------------------------------------------------------------------      
+|   0 | SELECT STATEMENT |                   |       |       |     1 (100)|      
+|*  1 |  FIXED TABLE FULL| X$KGLCURSOR_CHILD |     1 |   549 |     0   (0)|      
+---------------------------------------------------------------------------      
+                                                                                 
+Predicate Information (identified by operation id):                              
+---------------------------------------------------                              
+                                                                                 
+   1 - filter(("KGLNAOBJ" IS NOT NULL AND "KGLNAOBJ" IS NOT NULL AND             
+              INTERNAL_FUNCTION("CON_ID") AND "KGLNAOBJ" LIKE                    
+              '%case_study_4_leading%' AND "KGLNAOBJ" NOT LIKE '%v$sql%' AND     
+              "INST_ID"=USERENV('INSTANCE')))                                    
+                                                                                 
+
+22 rows selected. 

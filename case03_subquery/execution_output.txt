@@ -1,0 +1,46 @@
+PLAN_TABLE_OUTPUT                                                                                  
+__________________________________________________________________________________________________ 
+SQL_ID  79zmv5ftfhbpz, child number 0                                                              
+-------------------------------------                                                              
+SELECT /*+ case_study_3 */  E.FIRST_NAME, E.LAST_NAME, E.HIRE_DATE FROM                            
+  EMPLOYEES E, DEPARTMENTS D1 WHERE  E.EMPLOYEE_ID IN (   SELECT                                   
+MANAGER_ID FROM DEPARTMENTS D2 WHERE DEPARTMENT_ID = 10) AND                                       
+E.DEPARTMENT_ID = D1.DEPARTMENT_ID AND    D1.LOCATION_ID = 1700 AND                                
+E.HIRE_DATE > TO_DATE('30-JAN-2000 00:00:00','DD-MON-YYYY HH24:MI:SS')                             
+                                                                                                   
+Plan hash value: 3448340703                                                                        
+                                                                                                   
+-----------------------------------------------------------------------------------------------    
+| Id  | Operation                     | Name          | Rows  | Bytes | Cost (%CPU)| Time     |    
+-----------------------------------------------------------------------------------------------    
+|   0 | SELECT STATEMENT              |               |       |       |     3 (100)|          |    
+|   1 |  NESTED LOOPS                 |               |     1 |    43 |     3   (0)| 00:00:01 |    
+|   2 |   NESTED LOOPS                |               |     1 |    36 |     2   (0)| 00:00:01 |    
+|*  3 |    TABLE ACCESS BY INDEX ROWID| DEPARTMENTS   |     1 |     7 |     1   (0)| 00:00:01 |    
+|*  4 |     INDEX UNIQUE SCAN         | DEPT_ID_PK    |     1 |       |     0   (0)|          |    
+|*  5 |    TABLE ACCESS BY INDEX ROWID| EMPLOYEES     |     1 |    29 |     1   (0)| 00:00:01 |    
+|*  6 |     INDEX UNIQUE SCAN         | EMP_EMP_ID_PK |     1 |       |     0   (0)|          |    
+|*  7 |   TABLE ACCESS BY INDEX ROWID | DEPARTMENTS   |     1 |     7 |     1   (0)| 00:00:01 |    
+|*  8 |    INDEX UNIQUE SCAN          | DEPT_ID_PK    |     1 |       |     0   (0)|          |    
+-----------------------------------------------------------------------------------------------    
+                                                                                                   
+Predicate Information (identified by operation id):                                                
+---------------------------------------------------                                                
+                                                                                                   
+   3 - filter("MANAGER_ID" IS NOT NULL)                                                            
+   4 - access("DEPARTMENT_ID"=10)                                                                  
+   5 - filter("E"."HIRE_DATE">TO_DATE(' 2000-01-30 00:00:00', 'syyyy-mm-dd                         
+              hh24:mi:ss'))                                                                        
+   6 - access("E"."EMPLOYEE_ID"="MANAGER_ID")                                                      
+   7 - filter("D1"."LOCATION_ID"=1700)                                                             
+   8 - access("E"."DEPARTMENT_ID"="D1"."DEPARTMENT_ID")                                            
+                                                                                                   
+Hint Report (identified by operation id / Query Block Name / Object Alias):                        
+Total hints for statement: 1 (E - Syntax error (1))                                                
+---------------------------------------------------------------------------                        
+                                                                                                   
+   0 -  SEL$1                                                                                      
+         E -  case_study_3                                                                         
+                                                                                                   
+
+42 rows selected. 

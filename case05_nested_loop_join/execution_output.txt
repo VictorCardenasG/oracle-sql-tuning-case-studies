@@ -1,0 +1,39 @@
+PLAN_TABLE_OUTPUT                                                                                                  
+__________________________________________________________________________________________________________________ 
+SQL_ID  2dkdzrfncmaz6, child number 0                                                                              
+-------------------------------------                                                                              
+SELECT /*case_study_5*/ E.FIRST_NAME, E.LAST_NAME, E.HIRE_DATE FROM                                                
+EMPLOYEES E, DEPARTMENTS D, LOCATIONS L  WHERE E.EMPLOYEE_ID IN (100,                                              
+101, 102, 103, 104, 105, 106, 107, 108, 109, 110) AND E.EMPLOYEE_ID > 0                                            
+AND E.DEPARTMENT_ID = D.DEPARTMENT_ID AND D.LOCATION_ID = L.LOCATION_ID                                            
+                                                                                                                   
+Plan hash value: 734818589                                                                                         
+                                                                                                                   
+---------------------------------------------------------------------------------------------------------          
+| Id  | Operation                            | Name             | Rows  | Bytes | Cost (%CPU)| Time     |          
+---------------------------------------------------------------------------------------------------------          
+|   0 | SELECT STATEMENT                     |                  |       |       |     4 (100)|          |          
+|*  1 |  HASH JOIN                           |                  |    11 |   396 |     4   (0)| 00:00:01 |          
+|   2 |   INLIST ITERATOR                    |                  |       |       |            |          |          
+|   3 |    TABLE ACCESS BY INDEX ROWID       | EMPLOYEES        |    11 |   319 |     2   (0)| 00:00:01 |          
+|*  4 |     INDEX UNIQUE SCAN                | EMP_EMP_ID_PK    |    11 |       |     1   (0)| 00:00:01 |          
+|   5 |   TABLE ACCESS BY INDEX ROWID BATCHED| DEPARTMENTS      |    27 |   189 |     2   (0)| 00:00:01 |          
+|*  6 |    INDEX FULL SCAN                   | DEPT_LOCATION_IX |    27 |       |     1   (0)| 00:00:01 |          
+---------------------------------------------------------------------------------------------------------          
+                                                                                                                   
+Predicate Information (identified by operation id):                                                                
+---------------------------------------------------                                                                
+                                                                                                                   
+   1 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")                                                             
+   4 - access(("E"."EMPLOYEE_ID"=100 OR "E"."EMPLOYEE_ID"=101 OR "E"."EMPLOYEE_ID"=102 OR                          
+              "E"."EMPLOYEE_ID"=103 OR "E"."EMPLOYEE_ID"=104 OR "E"."EMPLOYEE_ID"=105 OR "E"."EMPLOYEE_ID"=106     
+              OR "E"."EMPLOYEE_ID"=107 OR "E"."EMPLOYEE_ID"=108 OR "E"."EMPLOYEE_ID"=109 OR                        
+              "E"."EMPLOYEE_ID"=110))                                                                              
+   6 - filter("D"."LOCATION_ID" IS NOT NULL)                                                                       
+                                                                                                                   
+Note                                                                                                               
+-----                                                                                                              
+   - this is an adaptive plan                                                                                      
+                                                                                                                   
+
+35 rows selected. 

@@ -1,14 +1,18 @@
-Explained.
-
-
 PLAN_TABLE_OUTPUT                                                                                             
 _____________________________________________________________________________________________________________ 
+SQL_ID  4kk4189wx1dbb, child number 0                                                                         
+-------------------------------------                                                                         
+SELECT /*+ case_study_1 */ e.employee_id, e.first_name FROM employees e                                       
+WHERE e.phone_number LIKE '011.44.1344.345268' AND e.hire_date >                                              
+TO_DATE('30-jan-2004','dd-mon-yyyy') AND e.commission_pct IN (0.25,                                           
+0.15) AND e.employee_id BETWEEN 100 AND 175                                                                   
+                                                                                                              
 Plan hash value: 1781021061                                                                                   
                                                                                                               
 -----------------------------------------------------------------------------------------------------         
 | Id  | Operation                           | Name          | Rows  | Bytes | Cost (%CPU)| Time     |         
 -----------------------------------------------------------------------------------------------------         
-|   0 | SELECT STATEMENT                    |               |     1 |    36 |     3   (0)| 00:00:01 |         
+|   0 | SELECT STATEMENT                    |               |       |       |     3 (100)|          |         
 |*  1 |  TABLE ACCESS BY INDEX ROWID BATCHED| EMPLOYEES     |     1 |    36 |     3   (0)| 00:00:01 |         
 |*  2 |   INDEX RANGE SCAN                  | EMP_EMP_ID_PK |    77 |       |     1   (0)| 00:00:01 |         
 -----------------------------------------------------------------------------------------------------         
@@ -16,20 +20,17 @@ Plan hash value: 1781021061
 Predicate Information (identified by operation id):                                                           
 ---------------------------------------------------                                                           
                                                                                                               
-   1 - filter("E"."PHONE_NUMBER"='011.44.1344.345268' AND ("E"."COMMISSION_PCT"=0.15 OR                       
-              "E"."COMMISSION_PCT"=0.25) AND "E"."HIRE_DATE">TO_DATE(' 2004-01-30 00:00:00', 'syyyy-mm-dd     
-              hh24:mi:ss'))                                                                                   
+   1 - filter(("E"."PHONE_NUMBER"='011.44.1344.345268' AND                                                    
+              INTERNAL_FUNCTION("E"."COMMISSION_PCT") AND "E"."HIRE_DATE">TO_DATE(' 2004-01-30 00:00:00',     
+              'syyyy-mm-dd hh24:mi:ss')))                                                                     
    2 - access("E"."EMPLOYEE_ID">=100 AND "E"."EMPLOYEE_ID"<=175)                                              
                                                                                                               
 Hint Report (identified by operation id / Query Block Name / Object Alias):                                   
 Total hints for statement: 1 (E - Syntax error (1))                                                           
+---------------------------------------------------------------------------                                   
+                                                                                                              
+   1 -  SEL$1                                                                                                 
+         E -  case_study_1                                                                                    
+                                                                                                              
 
-PLAN_TABLE_OUTPUT                                                              
-______________________________________________________________________________ 
----------------------------------------------------------------------------    
-                                                                               
-   1 -  SEL$1                                                                  
-         E -  case_study_1                                                     
-
-24 rows selected. 
-
+32 rows selected. 
