@@ -1,35 +1,49 @@
-SQL_ID              CHILD_NUMBER SQL_TEXT                                                                                                                                                                                                                                                      
-________________ _______________ _____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
-8a2t2j94u0nxv                  0 SELECT /*+LEADING(E) case_study_4_leading*/ E.FIRST_NAME, E.LAST_NAME, E.HIRE_DATE FROM EMPLOYEES E, DEPARTMENTS D, LOCATIONS L WHERE E.EMPLOYEE_ID = 200 AND D.DEPARTMENT_ID = 10 AND E.DEPARTMENT_ID = D.DEPARTMENT_ID AND D.LOCATION_ID = L.LOCATION_ID    
+SQL_ID              CHILD_NUMBER SQL_TEXT                                                                                                                                                                                                                                                 
+________________ _______________ ________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+crwq64hr1h5n6                  0 SELECT /*+LEADING(E)*/ E.FIRST_NAME, E.LAST_NAME, E.HIRE_DATE --case4_leading FROM EMPLOYEES E, DEPARTMENTS D, LOCATIONS L WHERE E.EMPLOYEE_ID = 200 AND D.DEPARTMENT_ID = 10 AND E.DEPARTMENT_ID = D.DEPARTMENT_ID AND D.LOCATION_ID = L.LOCATION_ID    
 
-Enter value for sql_id: 
+Enter value for sql_id: crwq64hr1h5n6
 Enter value for child_number: 0
 old:SELECT * FROM DBMS_XPLAN.DISPLAY_CURSOR('&sql_id', &child_number)
-new:SELECT * FROM DBMS_XPLAN.DISPLAY_CURSOR('', 0)
+new:SELECT * FROM DBMS_XPLAN.DISPLAY_CURSOR('crwq64hr1h5n6', 0)
 
-PLAN_TABLE_OUTPUT                                                                
-________________________________________________________________________________ 
-SQL_ID  13bpwqwgnpga7, child number 0                                            
--------------------------------------                                            
-SELECT sql_id, child_number, sql_text FROM v$sql WHERE sql_text LIKE             
-'%case_study_4_leading%' AND sql_text NOT LIKE '%v$sql%'                         
-                                                                                 
-Plan hash value: 903671040                                                       
-                                                                                 
----------------------------------------------------------------------------      
-| Id  | Operation        | Name              | Rows  | Bytes | Cost (%CPU)|      
----------------------------------------------------------------------------      
-|   0 | SELECT STATEMENT |                   |       |       |     1 (100)|      
-|*  1 |  FIXED TABLE FULL| X$KGLCURSOR_CHILD |     1 |   549 |     0   (0)|      
----------------------------------------------------------------------------      
-                                                                                 
-Predicate Information (identified by operation id):                              
----------------------------------------------------                              
-                                                                                 
-   1 - filter(("KGLNAOBJ" IS NOT NULL AND "KGLNAOBJ" IS NOT NULL AND             
-              INTERNAL_FUNCTION("CON_ID") AND "KGLNAOBJ" LIKE                    
-              '%case_study_4_leading%' AND "KGLNAOBJ" NOT LIKE '%v$sql%' AND     
-              "INST_ID"=USERENV('INSTANCE')))                                    
-                                                                                 
+PLAN_TABLE_OUTPUT                                                                                 
+_________________________________________________________________________________________________ 
+SQL_ID  crwq64hr1h5n6, child number 0                                                             
+-------------------------------------                                                             
+SELECT /*+LEADING(E)*/ E.FIRST_NAME, E.LAST_NAME, E.HIRE_DATE                                     
+--case4_leading FROM EMPLOYEES E, DEPARTMENTS D, LOCATIONS L WHERE                                
+E.EMPLOYEE_ID = 200 AND D.DEPARTMENT_ID = 10 AND E.DEPARTMENT_ID =                                
+D.DEPARTMENT_ID AND D.LOCATION_ID = L.LOCATION_ID                                                 
+                                                                                                  
+Plan hash value: 2782876085                                                                       
+                                                                                                  
+----------------------------------------------------------------------------------------------    
+| Id  | Operation                    | Name          | Rows  | Bytes | Cost (%CPU)| Time     |    
+----------------------------------------------------------------------------------------------    
+|   0 | SELECT STATEMENT             |               |       |       |     2 (100)|          |    
+|   1 |  NESTED LOOPS                |               |     1 |    36 |     2   (0)| 00:00:01 |    
+|*  2 |   TABLE ACCESS BY INDEX ROWID| EMPLOYEES     |     1 |    29 |     1   (0)| 00:00:01 |    
+|*  3 |    INDEX UNIQUE SCAN         | EMP_EMP_ID_PK |     1 |       |     0   (0)|          |    
+|*  4 |   TABLE ACCESS BY INDEX ROWID| DEPARTMENTS   |     1 |     7 |     1   (0)| 00:00:01 |    
+|*  5 |    INDEX UNIQUE SCAN         | DEPT_ID_PK    |     1 |       |     0   (0)|          |    
+----------------------------------------------------------------------------------------------    
+                                                                                                  
+Predicate Information (identified by operation id):                                               
+---------------------------------------------------                                               
+                                                                                                  
+   2 - filter("E"."DEPARTMENT_ID"=10)                                                             
+   3 - access("E"."EMPLOYEE_ID"=200)                                                              
+   4 - filter("D"."LOCATION_ID" IS NOT NULL)                                                      
+   5 - access("D"."DEPARTMENT_ID"=10)                                                             
+                                                                                                  
+SQL Analysis Report (identified by operation id/Query Block Name/Object Alias):                   
+-------------------------------------------------------------------------------                   
+                                                                                                  
+   1 -  SEL$120E9FF1                                                                              
+           -  The query block has 1 cartesian product which may be                                
+              expensive. Consider adding join conditions or removing the                          
+              disconnected tables or views.                                                       
+                                                                                                  
 
-22 rows selected. 
+36 rows selected. 
