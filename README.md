@@ -12,6 +12,8 @@ The project emphasizes **access paths**, **join strategies**, **index usage**, a
 
 This section presents a visual guide to the most common Oracle SQL operations (e.g., `HASH JOIN`, `NESTED LOOPS`, `INDEX UNIQUE SCAN`) and explains them through analogies and personal illustrations. Ideal for visual learners seeking to build intuition around Oracle’s internal decision-making.
 
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AQCd?atlOrigin=eyJpIjoiNjc5OWUzMGFjMzkyNDU2NTk2MGIzMzkyNzc2YmM2NTMiLCJwIjoiYyJ9)
+
 ---
 
 ### 🛸 Oracle SQL Hints – Tuning Essentials
@@ -21,6 +23,8 @@ Provides foundational understanding of:
 - When and how to use them
 - How hints like `LEADING`, `USE_NL`, and `INDEX` guide the optimizer
 - How hints influence query performance by modifying join order and access paths
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AoB-/?atlOrigin=eyJpIjoiMGJlNzFlYjBkOGM3NDkzM2E0ODJmMzc5YzJhNmJlNzEiLCJwIjoiYyJ9)
 
 ---
 
