@@ -78,6 +78,46 @@ Focus on how Oracle interprets and optimizes `EXISTS` subqueries. Demonstrates t
 
 ---
 
+### 🔹 `case07_multiple_column_predicates`
+**Objective:**  
+Examine how Oracle processes queries with IN-list predicates and how join operations can be influenced by hints. Compare the default query plan with versions that use different optimization hints.
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AYD2) 
+
+---
+
+### 🔹 `case08&09_combine_hint`
+**Objective:**  
+Examines Oracle's optimization strategies for OR conditions, focusing on bitmap operations and the LNNVL function. 
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/A4D0) 
+
+---
+
+### 🔹 `case11_combine_hint`
+**Objective:**  
+Examine the execution strategies for queries containing IN subqueries and evaluate the impact of join order hints on the optimization process.
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/DYD0) 
+
+---
+
+### 🔹 `case12_long_query`
+**Objective:**  
+Examine the execution plan for a complex query joining five tables with multiple filtering conditions, demonstrating how Oracle processes nested subqueries and EXISTS operators in a multi-table join environment.
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AgD5) 
+
+---
+
+### 🔹 `case13_merge_join_cartesian`
+**Objective:**  
+This analysis compares two approaches for executing a query with a subquery in the WHERE clause, examining how join order hints affect the execution plan and performance.
+
+📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/DgD5) 
+
+---
+
 ### 🧩 `Extended Case Study 01`
 Additional exploration and diagnostics related to Case 01. Includes performance comparisons, plan variations, and step-by-step visual breakdowns.
 
