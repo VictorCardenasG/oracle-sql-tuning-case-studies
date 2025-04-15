@@ -1,0 +1,27 @@
+SELECT E.FIRST_NAME, E.LAST_NAME --case_13 FROM   EMPLOYEES E,                                                 
+DEPARTMENTS D WHERE  D.LOCATION_ID IN ( SELECT L.LOCATION_ID FROM                                              
+LOCATIONS L WHERE L.LOCATION_ID = 1400 ) AND    D.DEPARTMENT_ID =                                              
+E.DEPARTMENT_ID                                                                                                
+                                                                                                               
+Plan hash value: 2696597736                                                                                    
+                                                                                                               
+-----------------------------------------------------------------------------------------------------------    
+| Id  | Operation                             | Name              | Rows  | Bytes | Cost (%CPU)| Time     |    
+-----------------------------------------------------------------------------------------------------------    
+|   0 | SELECT STATEMENT                      |                   |       |       |     3 (100)|          |    
+|   1 |  NESTED LOOPS                         |                   |    10 |   240 |     3   (0)| 00:00:01 |    
+|   2 |   NESTED LOOPS                        |                   |    10 |   240 |     3   (0)| 00:00:01 |    
+|   3 |    TABLE ACCESS BY INDEX ROWID BATCHED| DEPARTMENTS       |     1 |     7 |     2   (0)| 00:00:01 |    
+|*  4 |     INDEX RANGE SCAN                  | DEPT_LOCATION_IX  |     1 |       |     1   (0)| 00:00:01 |    
+|*  5 |    INDEX RANGE SCAN                   | EMP_DEPARTMENT_IX |    10 |       |     0   (0)|          |    
+|   6 |   TABLE ACCESS BY INDEX ROWID         | EMPLOYEES         |    10 |   170 |     1   (0)| 00:00:01 |    
+-----------------------------------------------------------------------------------------------------------    
+                                                                                                               
+Predicate Information (identified by operation id):                                                            
+---------------------------------------------------                                                            
+                                                                                                               
+   4 - access("D"."LOCATION_ID"=1400)                                                                          
+   5 - access("D"."DEPARTMENT_ID"="E"."DEPARTMENT_ID")                                                         
+                                                                                                               
+
+27 rows selected. 

@@ -1,0 +1,36 @@
+SELECT E.FIRST_NAME, E.LAST_NAME --case_study_11 FROM   EMPLOYEES E,                               
+DEPARTMENTS D WHERE  E.EMPLOYEE_ID = 101 AND    D.LOCATION_ID IN (                                 
+    SELECT LOCATION_ID          FROM   DEPARTMENTS D1          WHERE                               
+D1.DEPARTMENT_ID = E.DEPARTMENT_ID ) AND    E.HIRE_DATE >                                          
+TO_DATE('30-JAN-2004 00:00:00','DD-MON-YYYY HH24:MI:SS') AND                                       
+E.DEPARTMENT_ID = D.DEPARTMENT_ID                                                                  
+                                                                                                   
+Plan hash value: 3069442899                                                                        
+                                                                                                   
+-----------------------------------------------------------------------------------------------    
+| Id  | Operation                     | Name          | Rows  | Bytes | Cost (%CPU)| Time     |    
+-----------------------------------------------------------------------------------------------    
+|   0 | SELECT STATEMENT              |               |       |       |     2 (100)|          |    
+|   1 |  NESTED LOOPS                 |               |     1 |    43 |     2   (0)| 00:00:01 |    
+|   2 |   NESTED LOOPS                |               |     1 |    36 |     2   (0)| 00:00:01 |    
+|*  3 |    TABLE ACCESS BY INDEX ROWID| EMPLOYEES     |     1 |    29 |     1   (0)| 00:00:01 |    
+|*  4 |     INDEX UNIQUE SCAN         | EMP_EMP_ID_PK |     1 |       |     0   (0)|          |    
+|   5 |    TABLE ACCESS BY INDEX ROWID| DEPARTMENTS   |     1 |     7 |     1   (0)| 00:00:01 |    
+|*  6 |     INDEX UNIQUE SCAN         | DEPT_ID_PK    |     1 |       |     0   (0)|          |    
+|*  7 |   TABLE ACCESS BY INDEX ROWID | DEPARTMENTS   |     1 |     7 |     0   (0)|          |    
+|*  8 |    INDEX UNIQUE SCAN          | DEPT_ID_PK    |     1 |       |     0   (0)|          |    
+-----------------------------------------------------------------------------------------------    
+                                                                                                   
+Predicate Information (identified by operation id):                                                
+---------------------------------------------------                                                
+                                                                                                   
+   3 - filter("E"."HIRE_DATE">TO_DATE(' 2004-01-30 00:00:00', 'syyyy-mm-dd                         
+              hh24:mi:ss'))                                                                        
+   4 - access("E"."EMPLOYEE_ID"=101)                                                               
+   6 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")                                             
+   7 - filter("D"."LOCATION_ID"="LOCATION_ID")                                                     
+   8 - access("D1"."DEPARTMENT_ID"="E"."DEPARTMENT_ID")                                            
+                                                                                                   
+
+35 rows selected. 
+

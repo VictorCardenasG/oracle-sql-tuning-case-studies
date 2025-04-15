@@ -1,0 +1,36 @@
+SELECT /*+LEADING(E) USE_NL(D E)*/ E.FIRST_NAME, E.LAST_NAME,                                     
+E.HIRE_DATE --case_study_7_tuned FROM EMPLOYEES E, DEPARTMENTS D WHERE                            
+E.EMPLOYEE_ID IN (100, 101, 102, 103, 104, 105) AND E.EMPLOYEE_ID > 0                             
+AND E.DEPARTMENT_ID = D.DEPARTMENT_ID                                                             
+                                                                                                  
+Plan hash value: 1977235694                                                                       
+                                                                                                  
+----------------------------------------------------------------------------------------------    
+| Id  | Operation                    | Name          | Rows  | Bytes | Cost (%CPU)| Time     |    
+----------------------------------------------------------------------------------------------    
+|   0 | SELECT STATEMENT             |               |       |       |     2 (100)|          |    
+|   1 |  INLIST ITERATOR             |               |       |       |            |          |    
+|*  2 |   TABLE ACCESS BY INDEX ROWID| EMPLOYEES     |     6 |   174 |     2   (0)| 00:00:01 |    
+|*  3 |    INDEX UNIQUE SCAN         | EMP_EMP_ID_PK |     6 |       |     1   (0)| 00:00:01 |    
+----------------------------------------------------------------------------------------------    
+                                                                                                  
+Predicate Information (identified by operation id):                                               
+---------------------------------------------------                                               
+                                                                                                  
+   2 - filter("E"."DEPARTMENT_ID" IS NOT NULL)                                                    
+   3 - access(("E"."EMPLOYEE_ID"=100 OR "E"."EMPLOYEE_ID"=101 OR                                  
+              "E"."EMPLOYEE_ID"=102 OR "E"."EMPLOYEE_ID"=103 OR "E"."EMPLOYEE_ID"=104 OR          
+              "E"."EMPLOYEE_ID"=105))                                                             
+                                                                                                  
+Hint Report (identified by operation id / Query Block Name / Object Alias):                       
+Total hints for statement: 3 (U - Unused (3))                                                     
+---------------------------------------------------------------------------                       
+                                                                                                  
+   1 -  SEL$F7859CDE                                                                              
+         U -  LEADING(E)                                                                          
+                                                                                                  
+   1 -  SEL$F7859CDE / "D"@"SEL$1"                                                                
+         U -  USE_NL(D E)                                                                         
+                                                                                                  
+   2 -  SEL$F7859CDE / "E"@"SEL$1"                                                                
+         U -  USE_NL(D E)    

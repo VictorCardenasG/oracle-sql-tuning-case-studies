@@ -1,0 +1,38 @@
+SELECT /*+ USE_CONCAT */ E.FIRST_NAME, E.LAST_NAME --case8_concat FROM                                          
+ EMPLOYEES E, DEPARTMENTS D WHERE  (E.EMPLOYEE_ID = 101 OR                                                      
+E.DEPARTMENT_ID = 10) AND    E.DEPARTMENT_ID = D.DEPARTMENT_ID AND                                              
+D.LOCATION_ID   = 1700                                                                                          
+                                                                                                                
+Plan hash value: 993921030                                                                                      
+                                                                                                                
+------------------------------------------------------------------------------------------------------------    
+| Id  | Operation                              | Name              | Rows  | Bytes | Cost (%CPU)| Time     |    
+------------------------------------------------------------------------------------------------------------    
+|   0 | SELECT STATEMENT                       |                   |       |       |     5 (100)|          |    
+|   1 |  CONCATENATION                         |                   |       |       |            |          |    
+|   2 |   NESTED LOOPS                         |                   |     1 |    28 |     2   (0)| 00:00:01 |    
+|   3 |    TABLE ACCESS BY INDEX ROWID         | EMPLOYEES         |     1 |    21 |     1   (0)| 00:00:01 |    
+|*  4 |     INDEX UNIQUE SCAN                  | EMP_EMP_ID_PK     |     1 |       |     0   (0)|          |    
+|*  5 |    TABLE ACCESS BY INDEX ROWID         | DEPARTMENTS       |     1 |     7 |     1   (0)| 00:00:01 |    
+|*  6 |     INDEX UNIQUE SCAN                  | DEPT_ID_PK        |     1 |       |     0   (0)|          |    
+|   7 |   NESTED LOOPS                         |                   |     1 |    28 |     3   (0)| 00:00:01 |    
+|   8 |    NESTED LOOPS                        |                   |     1 |    28 |     3   (0)| 00:00:01 |    
+|*  9 |     TABLE ACCESS BY INDEX ROWID BATCHED| EMPLOYEES         |     1 |    21 |     2   (0)| 00:00:01 |    
+|* 10 |      INDEX RANGE SCAN                  | EMP_DEPARTMENT_IX |     1 |       |     1   (0)| 00:00:01 |    
+|* 11 |     INDEX UNIQUE SCAN                  | DEPT_ID_PK        |     1 |       |     0   (0)|          |    
+|* 12 |    TABLE ACCESS BY INDEX ROWID         | DEPARTMENTS       |     1 |     7 |     1   (0)| 00:00:01 |    
+------------------------------------------------------------------------------------------------------------    
+                                                                                                                
+Predicate Information (identified by operation id):                                                             
+---------------------------------------------------                                                             
+                                                                                                                
+   4 - access("E"."EMPLOYEE_ID"=101)                                                                            
+   5 - filter("D"."LOCATION_ID"=1700)                                                                           
+   6 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")                                                          
+   9 - filter(LNNVL("E"."EMPLOYEE_ID"=101))                                                                     
+  10 - access("E"."DEPARTMENT_ID"=10)                                                                           
+  11 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")                                                          
+  12 - filter("D"."LOCATION_ID"=1700)                                                                           
+                                                                                                                
+
+38 rows selected. 

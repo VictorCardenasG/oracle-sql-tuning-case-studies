@@ -1,0 +1,37 @@
+SELECT /*+ LEADING(E) USE_NL(D E) */    E.FIRST_NAME, E.LAST_NAME,                                  
+E.HIRE_DATE, D.DEPARTMENT_NAME --forced_query FROM EMPLOYEES E,                                     
+DEPARTMENTS D WHERE E.EMPLOYEE_ID IN (100, 101, 102, 103, 104, 105)                                 
+AND E.EMPLOYEE_ID > 0   AND E.DEPARTMENT_ID = D.DEPARTMENT_ID                                       
+                                                                                                    
+Plan hash value: 2304518308                                                                         
+                                                                                                    
+------------------------------------------------------------------------------------------------    
+| Id  | Operation                      | Name          | Rows  | Bytes | Cost (%CPU)| Time     |    
+------------------------------------------------------------------------------------------------    
+|   0 | SELECT STATEMENT               |               |       |       |     8 (100)|          |    
+|   1 |  NESTED LOOPS                  |               |     6 |   270 |     8   (0)| 00:00:01 |    
+|   2 |   NESTED LOOPS                 |               |     6 |   270 |     8   (0)| 00:00:01 |    
+|   3 |    INLIST ITERATOR             |               |       |       |            |          |    
+|   4 |     TABLE ACCESS BY INDEX ROWID| EMPLOYEES     |     6 |   174 |     2   (0)| 00:00:01 |    
+|*  5 |      INDEX UNIQUE SCAN         | EMP_EMP_ID_PK |     6 |       |     1   (0)| 00:00:01 |    
+|*  6 |    INDEX UNIQUE SCAN           | DEPT_ID_PK    |     1 |       |     0   (0)|          |    
+|   7 |   TABLE ACCESS BY INDEX ROWID  | DEPARTMENTS   |     1 |    16 |     1   (0)| 00:00:01 |    
+------------------------------------------------------------------------------------------------    
+                                                                                                    
+Predicate Information (identified by operation id):                                                 
+---------------------------------------------------                                                 
+                                                                                                    
+   5 - access(("E"."EMPLOYEE_ID"=100 OR "E"."EMPLOYEE_ID"=101 OR "E"."EMPLOYEE_ID"=102              
+              OR "E"."EMPLOYEE_ID"=103 OR "E"."EMPLOYEE_ID"=104 OR "E"."EMPLOYEE_ID"=105))          
+   6 - access("E"."DEPARTMENT_ID"="D"."DEPARTMENT_ID")                                              
+                                                                                                    
+Hint Report (identified by operation id / Query Block Name / Object Alias):                         
+Total hints for statement: 1 (U - Unused (1))                                                       
+---------------------------------------------------------------------------                         
+                                                                                                    
+   4 -  SEL$1 / "E"@"SEL$1"                                                                         
+         U -  USE_NL(D E)                                                                           
+                                                                                                    
+
+36 rows selected. 
+
