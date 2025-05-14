@@ -6,9 +6,9 @@ The project emphasizes **access paths**, **join strategies**, **index usage**, a
 
 ---
 
-## 📚 Contents
+## 🔵 Contents
 
-### 🎨 Execution Plan Illustrated Guide
+### 🔵 Execution Plan Illustrated Guide
 
 This section presents a visual guide to the most common Oracle SQL operations (e.g., `HASH JOIN`, `NESTED LOOPS`, `INDEX UNIQUE SCAN`) and explains them through analogies and personal illustrations. Ideal for visual learners seeking to build intuition around Oracle’s internal decision-making.
 
@@ -118,7 +118,7 @@ This analysis compares two approaches for executing a query with a subquery in t
 
 ---
 
-### 🧩 `Extended Case Study 01`
+### 🔵 `Extended Case Study 01`
 Additional exploration and diagnostics related to Case 01. Includes performance comparisons, plan variations, and step-by-step visual breakdowns.
 
 📄 [View Confluence Page](https://victorcardenasgil.atlassian.net/wiki/x/AYAF?atlOrigin=eyJpIjoiZDA1ZmQ5YTRlMjk1NDFmNzlkYjg1ZmMxYWUzN2EwYjYiLCJwIjoiYyJ9)
@@ -140,7 +140,7 @@ Each folder contains:
 
 ---
 
-## 🛠️ How to Use
+## 🔵 How to Use
 
 1. Load the `.sql` file in SQL*Plus or another Oracle-compatible SQL IDE.
 2. Use `EXPLAIN PLAN` or `DBMS_XPLAN.DISPLAY_CURSOR` to review execution behavior.
@@ -149,7 +149,7 @@ Each folder contains:
 
 ---
 
-## 🎓 Recommended Audience
+## 🔵 Recommended Audience
 
 This repository is intended for:
 - SQL developers and analysts aiming to understand Oracle’s execution engine
